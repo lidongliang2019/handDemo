@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>弹性运动</title>
+    <style>
+        #container {
+            position: relative;
+            width: 600px;
+            height: 35px;
+            margin: 100px auto;
+        }
+
+        .moreBox {
+            position: relative;
+            float: left;
+            width: 48px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            border: 1px solid #333333;
+        }
+
+        #rollBox {
+            position: absolute;
+            background-color: aquamarine;
+            width: 50px;
+            height: 30px;
+            margin: 1px 1px;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div id="rollBox"></div>
+    <div class="moreBox">1</div>
+    <div class="moreBox">2</div>
+    <div class="moreBox">3</div>
+    <div class="moreBox">4</div>
+    <div class="moreBox">5</div>
+    <div class="moreBox">6</div>
+    <div class="moreBox">7</div>
+    <div class="moreBox">8</div>
+    <div class="moreBox">9</div>
+    <div class="moreBox">10</div>
+</div>
+<script src="elasticitySports.js"></script>
+<script>
+    let oNavArr = Array.prototype.slice.call(document.getElementsByClassName("moreBox"), 0);
+    let scrollBox = document.getElementById("rollBox");
+    oNavArr.forEach(element => {
+        element.onclick = function () {
+            startMove(scrollBox, this.offsetLeft)
+        }
+    })
+</script>
+</body>
+</html>

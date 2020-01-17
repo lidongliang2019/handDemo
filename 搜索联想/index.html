@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>百度搜索联想</title>
+    <style>
+        #container {
+            width: 400px;
+            position: relative;
+            margin: 100px auto;
+        }
+
+        #container input {
+            box-sizing: border-box;
+            margin: 0 auto;
+            width: 300px;
+            height: 30px;
+            left: 300px;
+            font-size: 16px;
+            padding-left: 5px;
+        }
+
+        #container ul {
+            box-sizing: border-box;
+            margin-top: -1px;
+            list-style: none;
+            padding: 0;
+            border: 1px solid #999;
+            border-top: none;
+            width: 300px;
+        }
+
+        #container li {
+            box-sizing: border-box;
+            padding: 5px -5px 5px 5px;
+        }
+
+        #container a {
+            display: block;
+            width: 100%;
+            color: #333;
+            text-decoration: none;
+        }
+
+        #container a:hover {
+            background-color: #F5F5F5;
+        }
+        #inputButton{
+            height:30px;
+        }
+        #btn{
+            position: absolute;
+            left: 299px;
+            top:0;
+        }
+    </style>
+</head>
+<body>
+<form action="http://www.baidu.com/s">
+<div id="container">
+    <input type="text" name="wd" placeholder="百度一下，你就知道" autocomplete="off">
+    <ul></ul>
+    <div id="btn">
+        <button id="inputButton" type="submit">
+        百度一下
+    </button>
+    </div>
+
+</div>
+
+
+
+</form>
+<script>
+    let onInput = document.getElementsByTagName("input")[0];
+    let onUl = document.getElementsByTagName("ul")[0];
+    onInput.oninput = function (e) {
+        let sugUrl = "http://suggestion.baidu.com/su?wd=#content#&callback=window.baidu.sug";
+        let script = document.createElement("script");
+        let value = this.value;
+        document.getElementsByTagName("head")[0].appendChild(script);
+        sugUrl = sugUrl.replace("#content#", value);
+        script.src = sugUrl;
+
+        if (value === '' && value.length <= 0) {
+            onUl.style.display = "none";
+        } else {
+            onUl.style.display = 'block';
+        }
+        console.log(value);
+    };
+    window.baidu = {
+        sug: function (json) {
+            console.log(json);
+            let html = "";
+            for (let i = 0; i < json.s.length; i++) {
+                html += '<li><a href="https:www.baidu.com/s?wd= ' + json.s[i] + ' ">' + json.s[i] + '</li>';
+            }
+            onUl.innerHTML = html;
+        }
+    };
+     sand = () => {
+
+    }
+
+</script>
+</body>
+</html>
